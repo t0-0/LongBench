@@ -13,7 +13,7 @@ import torch.multiprocessing as mp
 
 def parse_args(args=None):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', type=str, default=None, choices=["llama2-7b-chat-4k", "longchat-v1.5-7b-32k", "xgen-7b-8k", "internlm-7b-8k", "chatglm2-6b", "chatglm2-6b-32k", "chatglm3-6b-32k", "vicuna-v1.5-7b-16k"])
+    parser.add_argument('--model', type=str, default=None, choices=["llama2-7b-chat-4k", "longchat-v1.5-7b-32k", "xgen-7b-8k", "internlm-7b-8k", "chatglm2-6b", "chatglm2-6b-32k", "chatglm3-6b-32k", "vicuna-v1.5-7b-16k", "tokyotech-llm/Swallow-MS-7b-v01-yarn-16k-iter0005000", "tokyotech-llm/Swallow-7b-hf-yarn-16k-0005000", "tokyotech-llm/Swallow-7b-hf-yarn-32k-iter0002500"])
     parser.add_argument('--e', action='store_true', help="Evaluate on LongBench-E")
     return parser.parse_args(args)
 
@@ -93,7 +93,8 @@ def get_pred(rank, world_size, data, max_length, max_gen, prompt_format, dataset
         with open(out_path, "a", encoding="utf-8") as f:
             json.dump({"pred": pred, "answers": json_obj["answers"], "all_classes": json_obj["all_classes"], "length": json_obj["length"]}, f, ensure_ascii=False)
             f.write('\n')
-    dist.destroy_process_group()
+    if torch.distributed.is_initialized():
+        dist.destroy_process_group()
 
 def seed_everything(seed):
     torch.manual_seed(seed)
@@ -126,6 +127,9 @@ def load_model_and_tokenizer(path, model_name, device):
         model = model.to(device)
         model = model.bfloat16()
         tokenizer = AutoTokenizer.from_pretrained(path, trust_remote_code=True, use_fast=False)
+    elif "Swallow" in model_name:
+        tokenizer = AutoTokenizer.from_pretrained(path, trust_remote_code=True)
+        model = AutoModelForCausalLM.from_pretrained(path, trust_remote_code=True, device_map='auto', torch_dtype=torch.bfloat16)
     model = model.eval()
     return model, tokenizer
 

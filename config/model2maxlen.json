@@ -6,5 +6,8 @@
     "chatglm2-6b": 31500,
     "chatglm2-6b-32k": 31500,
     "chatglm3-6b-32k": 31500,
-    "vicuna-v1.5-7b-16k": 15500
+    "vicuna-v1.5-7b-16k": 15500,
+    "tokyotech-llm/Swallow-MS-7b-v01-yarn-16k-iter0005000": 16000,
+    "tokyotech-llm/Swallow-7b-hf-yarn-16k-0005000": 16000,
+    "tokyotech-llm/Swallow-7b-hf-yarn-32k-iter0002500": 32000
 }

@@ -6,5 +6,8 @@
     "chatglm2-6b": "THUDM/chatglm2-6b",
     "chatglm2-6b-32k": "THUDM/chatglm2-6b-32k",
     "chatglm3-6b-32k": "THUDM/chatglm3-6b-32k",
-    "vicuna-v1.5-7b-16k": "lmsys/vicuna-7b-v1.5-16k"
+    "vicuna-v1.5-7b-16k": "lmsys/vicuna-7b-v1.5-16k",
+    "tokyotech-llm/Swallow-MS-7b-v01-yarn-16k-iter0005000": "tokyotech-llm/Swallow-MS-7b-v01-yarn-16k-iter0005000",
+    "tokyotech-llm/Swallow-7b-hf-yarn-16k-0005000": "tokyotech-llm/Swallow-7b-hf-yarn-16k-0005000",
+    "tokyotech-llm/Swallow-7b-hf-yarn-32k-iter0002500": "tokyotech-llm/Swallow-7b-hf-yarn-32k-iter0002500"
 }
